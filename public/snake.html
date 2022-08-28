@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JavaScript Snake game</title>
+    <style>
+        canvas {
+            background: black
+        }
+    </style>
+    <script>
+        function UpdateServer() {
+            // const Game = document.getElementById('myCanvas');
+            // const Server = document.getElementById('myCanvas2Server');
+            // const destCtx = Server.getContext('2d');
+            // destCtx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
+            // destCtx.drawImage(Game, 0, 0);
+        }
+    </script>
+    <script src="snake.js"></script>
+    <script src="touch.js"></script>
+    <script>
+        // Create WebSocket connection.
+        const socket = new WebSocket('ws://localhost:8080');
+
+        // Connection opened
+        socket.addEventListener('open', function (event) {
+            console.log('Connected to WS Server')
+            sendRegistration();
+        });
+
+        // Listen for messages
+        socket.addEventListener('message', function (event) {
+            console.log('Message from server ', event.data);
+
+            if (event.data === 'SERVER:START') {
+                paused = false;
+            };
+            if (event.data === 'SERVER:PAUSE') {
+                paused = true;
+            };
+            if (event.data === 'SERVER:BONUS') {
+
+            };
+            if (event.data === 'SERVER:RESET') {
+                init();
+            };
+            if (event.data === 'SERVER:BONUS') {
+
+};
+        });
+
+        // send message to server
+        const sendRegistration = () => {
+            socket.send('CLIENT');
+        }
+        const sendMessage = () => {
+            socket.send('Hello From Client1!');
+        }
+    </script>
+
+</head>
+
+<body onload="init();">
+    <button onclick="sendMessage()">Send Msg</button>
+    <button onclick="StartStop()">Start / Restart</button><br>
+    <div style="text-align: center;">
+        <canvas id="myCanvas" width="300" height="320" style="width: 40%;">
+        </canvas>
+    </div>
+</body>
+
+</html>
