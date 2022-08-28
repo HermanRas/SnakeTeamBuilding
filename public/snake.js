@@ -55,6 +55,7 @@ function init() {
 
     inGame = true;
     paused = true;
+    score  = 1;
 
     loadImages();
     createSnake();
@@ -91,9 +92,7 @@ function loadImages() {
 }
 
 function createSnake() {
-
     dots = 3;
-
     for (var z = 0; z < dots; z++) {
         x[z] = 50 - z * 10;
         y[z] = 50;
@@ -101,11 +100,8 @@ function createSnake() {
 }
 
 function checkApple() {
-
     if ((x[0] == apple_x) && (y[0] == apple_y)) {
-
         dots++;
-        score++;
         locateApple();
     }
 }
@@ -124,7 +120,6 @@ function doDrawing() {
         // ctx.drawImage(bomb, 150, 150);
 
         for (var z = 0; z < dots; z++) {
-
             if (z == 0) {
                 ctx.drawImage(head, x[z], y[z]);
             } else {
@@ -155,11 +150,24 @@ function gamePause() {
     ctx.fillText('Server Paused..', C_WIDTH / 2, C_HEIGHT / 2);
 }
 
+function showScore() {
+    // clear scoreboard
+    ctx.fillStyle = '#444444';
+    ctx.fillRect(0, C_HEIGHT, C_WIDTH, C_HEIGHT+10);
+
+    ctx.fillStyle = 'white';
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+    ctx.font = 'normal bold 18px serif';
+
+    ctx.fillText("SCORE="+score, C_WIDTH / 2, C_HEIGHT+11);
+}
+
 function checkApple() {
 
     if ((x[0] == apple_x) && (y[0] == apple_y)) {
-
         dots++;
+        score++;
         locateApple();
     }
 }
@@ -227,7 +235,7 @@ function gameCycle() {
     if (inGame) {
         checkApple();
         checkCollision();
-
+        showScore();
         if (!paused) {
             move();
             doDrawing();
