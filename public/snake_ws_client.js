@@ -1,11 +1,16 @@
 // Create WebSocket connection.
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('ws://192.168.8.103:8080');
 
 // Connection opened
 socket.addEventListener('open', function (event) {
     console.log('Connected to WS Server')
     sendRegistration();
 });
+
+function updatePlayer(){
+    player = document.getElementById("player").value;
+    CLIENT_ID = player;
+}
 
 // Listen for messages
 socket.addEventListener('message', function (event) {
@@ -39,9 +44,6 @@ const sendRegistration = () => {
     socket.send('CLIENT');
 }
 
-const sendMessage = () => {
-    socket.send('Hello From Client1!');
-}
 
 function UpdateServer() {
     const game2d = document.getElementById('myCanvas');

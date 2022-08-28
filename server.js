@@ -76,6 +76,7 @@ wss.on('connection', function connection(ws) {
       updateServerLog('CONSOLE', 'Pausing all snakes.');
       wss.clients.forEach(function each(client) {
         if (client == ws && client.readyState === WebSocket.OPEN) {
+          // recomended client can update
           client.send('CLIENT:ID:' + (wss.clients.size - 1));
         }
       });
