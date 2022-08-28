@@ -18,18 +18,18 @@
 
 <body onload="init();">
     <div style="text-align: center;">
-        <canvas id="myCanvas" width="300" height="320" style="width: 100%;">
+        <canvas id="myCanvas" width="300" height="320" style="width: 100%;max-width: 500px;">
         </canvas>
         <br>
-        <select id="player" onchange="updatePlayer()">
-            <option value="1">s1</option>
-            <option value="2">s2</option>
-            <option value="3">s3</option>
-            <option value="4">s4</option>
-            <option value="5">s5</option>
-            <option value="6">s6</option>
-            <option value="7">s7</option>
-            <option value="8">s8</option>
+        <select class="form-control" id="player" onchange="updatePlayer()">
+            <option value="1">Snake 1</option>
+            <option value="2">Snake 2</option>
+            <option value="3">Snake 3</option>
+            <option value="4">Snake 4</option>
+            <option value="5">Snake 5</option>
+            <option value="6">Snake 6</option>
+            <option value="7">Snake 7</option>
+            <option value="8">Snake 8</option>
         </select>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
