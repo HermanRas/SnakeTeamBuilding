@@ -50,6 +50,16 @@ wss.on('connection', function connection(ws) {
       });
     }
 
+    if (message === 'SERVER:RESET') {
+      updateServerLog('SERVER ', message);
+      updateServerLog('CONSOLE', 'Sending a RESET to all snakes.');
+      wss.clients.forEach(function each(client) {
+        if (client !== ws && client.readyState === WebSocket.OPEN) {
+          client.send('SERVER:RESET');
+        }
+      });
+    }
+
     //////////////////////////////////////////////////////////////////////////
     // CLIENT ACTIONS 
     //////////////////////////////////////////////////////////////////////////

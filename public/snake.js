@@ -8,6 +8,8 @@
 // Updated to work with node WSS Server & WSS Client
 // updated aditional pickups
 
+var CLIENT_ID  = 0;
+
 var canvas;
 var ctx;
 
@@ -160,7 +162,7 @@ function showScore() {
     ctx.textAlign = 'center';
     ctx.font = 'normal bold 18px serif';
 
-    ctx.fillText("SCORE="+score, C_WIDTH / 2, C_HEIGHT+11);
+    ctx.fillText("S" + CLIENT_ID + " SCORE="+score, C_WIDTH / 2, C_HEIGHT+11);
 }
 
 function checkApple() {

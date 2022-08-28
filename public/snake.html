@@ -19,45 +19,7 @@
     </script>
     <script src="snake.js"></script>
     <script src="touch.js"></script>
-    <script>
-        // Create WebSocket connection.
-        const socket = new WebSocket('ws://localhost:8080');
-
-        // Connection opened
-        socket.addEventListener('open', function (event) {
-            console.log('Connected to WS Server')
-            sendRegistration();
-        });
-
-        // Listen for messages
-        socket.addEventListener('message', function (event) {
-            console.log('Message from server ', event.data);
-
-            if (event.data === 'SERVER:START') {
-                paused = false;
-            };
-            if (event.data === 'SERVER:PAUSE') {
-                paused = true;
-            };
-            if (event.data === 'SERVER:BONUS') {
-
-            };
-            if (event.data === 'SERVER:RESET') {
-                init();
-            };
-            if (event.data === 'SERVER:BONUS') {
-
-};
-        });
-
-        // send message to server
-        const sendRegistration = () => {
-            socket.send('CLIENT');
-        }
-        const sendMessage = () => {
-            socket.send('Hello From Client1!');
-        }
-    </script>
+    <script src="snake_ws_client.js"></script>
 
 </head>
 
