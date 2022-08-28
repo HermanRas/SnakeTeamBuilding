@@ -18,7 +18,7 @@ var leftDirection = false;
 var rightDirection = true;
 var upDirection = false;
 var downDirection = false;
-var inGame = true;    
+var inGame = true;
 var paused = true;
 
 const DOT_SIZE = 10;
@@ -26,7 +26,7 @@ const ALL_DOTS = 900;
 const MAX_RAND = 29;
 const DELAY = 140;
 const C_HEIGHT = 300;
-const C_WIDTH = 300;    
+const C_WIDTH = 300;
 
 const LEFT_KEY = 37;
 const RIGHT_KEY = 39;
@@ -34,30 +34,33 @@ const UP_KEY = 38;
 const DOWN_KEY = 40;
 
 var x = new Array(ALL_DOTS);
-var y = new Array(ALL_DOTS);   
+var y = new Array(ALL_DOTS);
 
 
 function init() {
-    
+
     canvas = document.getElementById('myCanvas');
     ctx = canvas.getContext('2d');
+
+    inGame = true;
+    paused = true;
 
     loadImages();
     createSnake();
     locateApple();
     setTimeout("gameCycle()", DELAY);
-}    
+}
 
 function loadImages() {
-    
+
     head = new Image();
-    head.src = 'head.png';    
-    
+    head.src = 'head.png';
+
     ball = new Image();
-    ball.src = 'dot.png'; 
-    
+    ball.src = 'dot.png';
+
     apple = new Image();
-    apple.src = 'apple.png'; 
+    apple.src = 'apple.png';
 }
 
 function createSnake() {
@@ -77,47 +80,46 @@ function checkApple() {
         dots++;
         locateApple();
     }
-}    
+}
 
 function doDrawing() {
-    
+
     ctx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
-    
+
     if (inGame) {
 
         ctx.drawImage(apple, apple_x, apple_y);
 
         for (var z = 0; z < dots; z++) {
-            
+
             if (z == 0) {
                 ctx.drawImage(head, x[z], y[z]);
             } else {
                 ctx.drawImage(ball, x[z], y[z]);
             }
-        }    
+        }
     } else {
-
         gameOver();
-    }     
-    UpdateServer();   
+    }
+    UpdateServer();
 }
 
 function gameOver() {
     ctx.fillStyle = 'white';
-    ctx.textBaseline = 'middle'; 
-    ctx.textAlign = 'center'; 
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
     ctx.font = 'normal bold 18px serif';
-    
-    ctx.fillText('Game over', C_WIDTH/2, C_HEIGHT/2);
+
+    ctx.fillText('Game over', C_WIDTH / 2, C_HEIGHT / 2);
 }
 
 function gamePause() {
     ctx.fillStyle = 'white';
-    ctx.textBaseline = 'middle'; 
-    ctx.textAlign = 'center'; 
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
     ctx.font = 'normal bold 18px serif';
-    
-    ctx.fillText('Server Paused..', C_WIDTH/2, C_HEIGHT/2);
+
+    ctx.fillText('Server Paused..', C_WIDTH / 2, C_HEIGHT / 2);
 }
 
 function checkApple() {
@@ -150,7 +152,7 @@ function move() {
     if (downDirection) {
         y[0] += DOT_SIZE;
     }
-}    
+}
 
 function checkCollision() {
 
@@ -166,15 +168,15 @@ function checkCollision() {
     }
 
     if (y[0] < 0) {
-       inGame = false;
+        inGame = false;
     }
 
     if (x[0] >= C_WIDTH) {
-      inGame = false;
+        inGame = false;
     }
 
     if (x[0] < 0) {
-      inGame = false;
+        inGame = false;
     }
 }
 
@@ -185,52 +187,53 @@ function locateApple() {
 
     r = Math.floor(Math.random() * MAX_RAND);
     apple_y = r * DOT_SIZE;
-}    
+}
 
 function gameCycle() {
-    
+
     if (inGame) {
         checkApple();
         checkCollision();
-        if (!paused){
+
+        if (!paused) {
             move();
-        }else{
+            doDrawing();
+        } else {
             gamePause();
         }
-        doDrawing();
         setTimeout("gameCycle()", DELAY);
     }
 }
 
-onkeydown = function(e) {
-    
+onkeydown = function (e) {
+
     var key = e.keyCode;
-    
+
     if ((key == LEFT_KEY) && (!rightDirection)) {
-        
+
         leftDirection = true;
         upDirection = false;
         downDirection = false;
     }
 
     if ((key == RIGHT_KEY) && (!leftDirection)) {
-        
+
         rightDirection = true;
         upDirection = false;
         downDirection = false;
     }
 
     if ((key == UP_KEY) && (!downDirection)) {
-        
+
         upDirection = true;
         rightDirection = false;
         leftDirection = false;
     }
 
     if ((key == DOWN_KEY) && (!upDirection)) {
-        
+
         downDirection = true;
         rightDirection = false;
         leftDirection = false;
-    }        
+    }
 };    

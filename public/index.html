@@ -16,30 +16,49 @@
             destCtx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
             destCtx.drawImage(Game, 0, 0);
         }
+
+        function StartStop() {
+            // If Game Over Restart Game
+            if (inGame === false) {
+                init();
+                return;
+            }
+
+            if (paused === true) {
+                console.log('test');
+                // If Game Paused Start
+                paused = false;
+            } else {
+                // If Game running Pause
+                paused = true;
+            }
+        }
     </script>
+    <script src="snake.js"></script>
     <script>
         // Create WebSocket connection.
         const socket = new WebSocket('ws://localhost:8080');
-    
+
         // Connection opened
         socket.addEventListener('open', function (event) {
             console.log('Connected to WS Server')
         });
-    
+
         // Listen for messages
         socket.addEventListener('message', function (event) {
             console.log('Message from server ', event.data);
         });
-    
+
         const sendMessage = () => {
             socket.send('Hello From Client1!');
         }
     </script>
-    <script src="snake.js"></script>
+
 </head>
 
 <body onload="init();">
-    <button onclick="sendMessage()">Send Msg</button>
+    <button onclick="sendMessage()">Send Msg</button><br>
+    <button onclick="StartStop()">Start / Restart</button><br>
     <canvas id="myCanvas" width="300" height="300">
     </canvas>
 
