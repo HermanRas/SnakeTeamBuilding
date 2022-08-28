@@ -5,6 +5,7 @@ const WebSocket = require('ws');
 
 const wss = new WebSocket.Server({ server: server });
 
+let ws_server;
 let ws_Server_log = '';
 
 wss.on('connection', function connection(ws) {
@@ -20,6 +21,12 @@ wss.on('connection', function connection(ws) {
     //////////////////////////////////////////////////////////////////////////
     // SERVER ACTIONS 
     //////////////////////////////////////////////////////////////////////////
+    if (message === 'SERVER:SET') {
+      updateServerLog('SERVER ', message);
+      updateServerLog('CONSOLE', 'Setting up connection to Server.');
+      ws_server = ws;
+    }
+
     if (message === 'SERVER:START') {
       updateServerLog('SERVER ', message);
       updateServerLog('CONSOLE', 'Sarting all snakes.');
@@ -80,6 +87,15 @@ wss.on('connection', function connection(ws) {
       wss.clients.forEach(function each(client) {
         if (client !== ws && client.readyState === WebSocket.OPEN) {
           client.send('SERVER:PAUSE');
+        }
+      });
+    }
+
+    const cmd = message.split(":");
+    if (cmd[0] === 'CLIENT' && cmd[1] === 'UPDATE') {
+      wss.clients.forEach(function each(client) {
+        if (client == ws_server && client.readyState === WebSocket.OPEN) {
+          client.send(message);
         }
       });
     }

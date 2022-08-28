@@ -42,3 +42,9 @@ const sendRegistration = () => {
 const sendMessage = () => {
     socket.send('Hello From Client1!');
 }
+
+function UpdateServer() {
+    const game2d = document.getElementById('myCanvas');
+    const imgData =  game2d.toDataURL();
+    socket.send('CLIENT:UPDATE:'+CLIENT_ID+':'+imgData);
+}
