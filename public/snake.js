@@ -3,12 +3,20 @@
 // Author Jan Bodnar
 // http://zetcode.com/javascript/snake/
 
+
+// Auther Herman Ras
+// Updated to work with node WSS Server & WSS Client
+// updated aditional pickups
+
 var canvas;
 var ctx;
 
 var head;
 var apple;
 var ball;
+var beer;
+var can;
+var cookie;
 
 var dots;
 var apple_x;
@@ -60,7 +68,16 @@ function loadImages() {
     ball.src = 'dot.png';
 
     apple = new Image();
-    apple.src = 'apple.png';
+    apple.src = 'apple_small.png';
+
+    beer = new Image();
+    beer.src = 'beer_small.png';
+
+    can = new Image();
+    can.src = 'can_small.png';
+
+    cookie = new Image();
+    cookie.src = 'cookie_small.png';
 }
 
 function createSnake() {
@@ -89,6 +106,9 @@ function doDrawing() {
     if (inGame) {
 
         ctx.drawImage(apple, apple_x, apple_y);
+        ctx.drawImage(beer, 50, 50);
+        ctx.drawImage(cookie, 100, 50);
+        ctx.drawImage(can, 150, 50);
 
         for (var z = 0; z < dots; z++) {
 
