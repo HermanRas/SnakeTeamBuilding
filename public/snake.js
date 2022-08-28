@@ -19,6 +19,7 @@ var can;
 var cookie;
 var heart;
 var bomb;
+var score;
 
 var dots;
 var apple_x;
@@ -64,28 +65,28 @@ function init() {
 function loadImages() {
 
     head = new Image();
-    head.src = 'head.png';
+    head.src = 'img/head.png';
 
     ball = new Image();
-    ball.src = 'dot.png';
+    ball.src = 'img/dot.png';
 
     apple = new Image();
-    apple.src = 'apple_small.png';
+    apple.src = 'img/apple_small.png';
 
     beer = new Image();
-    beer.src = 'beer_small.png';
+    beer.src = 'img/beer_small.png';
 
     can = new Image();
-    can.src = 'can_small.png';
+    can.src = 'img/can_small.png';
 
     cookie = new Image();
-    cookie.src = 'cookie_small.png';
+    cookie.src = 'img/cookie_small.png';
 
     heart = new Image();
-    heart.src = 'heart_small.png';
+    heart.src = 'img/heart_small.png';
 
     bomb = new Image();
-    bomb.src = 'bomb_small.png';
+    bomb.src = 'img/bomb_small.png';
     
 }
 
@@ -104,6 +105,7 @@ function checkApple() {
     if ((x[0] == apple_x) && (y[0] == apple_y)) {
 
         dots++;
+        score++;
         locateApple();
     }
 }
