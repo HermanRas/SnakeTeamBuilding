@@ -17,6 +17,8 @@ var ball;
 var beer;
 var can;
 var cookie;
+var heart;
+var bomb;
 
 var dots;
 var apple_x;
@@ -78,6 +80,13 @@ function loadImages() {
 
     cookie = new Image();
     cookie.src = 'cookie_small.png';
+
+    heart = new Image();
+    heart.src = 'heart_small.png';
+
+    bomb = new Image();
+    bomb.src = 'bomb_small.png';
+    
 }
 
 function createSnake() {
@@ -106,9 +115,11 @@ function doDrawing() {
     if (inGame) {
 
         ctx.drawImage(apple, apple_x, apple_y);
-        ctx.drawImage(beer, 50, 50);
-        ctx.drawImage(cookie, 100, 50);
-        ctx.drawImage(can, 150, 50);
+        // ctx.drawImage(beer, 50, 150);
+        // ctx.drawImage(cookie, 75, 150);
+        // ctx.drawImage(can, 100, 150);
+        // ctx.drawImage(heart, 125, 150);
+        // ctx.drawImage(bomb, 150, 150);
 
         for (var z = 0; z < dots; z++) {
 
