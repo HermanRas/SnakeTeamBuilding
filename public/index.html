@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JavaScript Snake game</title>
+    <style>
+        canvas {
+            background: black
+        }
+    </style>
+    <script>
+        function UpdateServer() {
+            const Game = document.getElementById('myCanvas');
+            const Server = document.getElementById('myCanvas2Server');
+            const destCtx = Server.getContext('2d');
+            destCtx.clearRect(0, 0, C_WIDTH, C_HEIGHT);
+            destCtx.drawImage(Game, 0, 0);
+        }
+    </script>
+    <script>
+        // Create WebSocket connection.
+        const socket = new WebSocket('ws://localhost:8080');
+    
+        // Connection opened
+        socket.addEventListener('open', function (event) {
+            console.log('Connected to WS Server')
+        });
+    
+        // Listen for messages
+        socket.addEventListener('message', function (event) {
+            console.log('Message from server ', event.data);
+        });
+    
+        const sendMessage = () => {
+            socket.send('Hello From Client1!');
+        }
+    </script>
+    <script src="snake.js"></script>
+</head>
+
+<body onload="init();">
+    <button onclick="sendMessage()">Send Msg</button>
+    <canvas id="myCanvas" width="300" height="300">
+    </canvas>
+
+    <canvas id="myCanvas2Server" width="300" height="300">
+    </canvas>
+
+</body>
+
+</html>

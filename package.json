@@ -1,0 +1,14 @@
+{
+    "name": "docker_web_socket_server",
+    "version": "1.0.0",
+    "description": "Node.js on Docker",
+    "author": "Herman Ras <herman.ras.it@gmail.com>",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "ws": "^7.3.0"
+    }
+  }
