@@ -45,6 +45,6 @@ const sendMessage = () => {
 
 function UpdateServer() {
     const game2d = document.getElementById('myCanvas');
-    const imgData =  game2d.toDataURL();
+    const imgData =  game2d.toDataURL('image/jpeg', 0.5);
     socket.send('CLIENT:UPDATE:'+CLIENT_ID+':'+imgData);
 }
