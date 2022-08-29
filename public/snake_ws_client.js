@@ -1,5 +1,5 @@
 // Create WebSocket connection.
-const socket = new WebSocket('ws://192.168.8.103:8080');
+const socket = new WebSocket('ws://localhost:8080');
 
 // Connection opened
 socket.addEventListener('open', function (event) {
@@ -7,7 +7,7 @@ socket.addEventListener('open', function (event) {
     sendRegistration();
 });
 
-function updatePlayer(){
+function updatePlayer() {
     player = document.getElementById("player").value;
     CLIENT_ID = player;
 }
@@ -47,6 +47,10 @@ const sendRegistration = () => {
 
 function UpdateServer() {
     const game2d = document.getElementById('myCanvas');
-    const imgData =  game2d.toDataURL('image/jpeg', 0.5);
-    socket.send('CLIENT:UPDATE:'+CLIENT_ID+':'+imgData);
+    const imgData = game2d.toDataURL('image/jpeg', 0.5);
+    socket.send('CLIENT:UPDATE:' + CLIENT_ID + ':' + imgData);
+}
+
+window.onbeforeunload = function () {
+    return "Dude, are you sure you want to leave? Think of the kittens!";
 }
