@@ -108,8 +108,8 @@ wss.on('connection', function connection(ws) {
 app.get('/', (req, res) => {
   res.send(
     '<h1>Welcome to snake CONSOLE!</h1>' +
-    '<br><a href="snake.html" >Join the Game</a>' +
-    '<br><a href="snakeManager.html" >Setup Server</a>' +
+    '<br><a href="snake.html" target="_blank">Join the Game</a>' +
+    '<br><a href="snakeManager.html" target="_blank">Setup Server</a>' +
     '<div style="border:box;">' + ws_Server_log + '</div>'
   )
 })

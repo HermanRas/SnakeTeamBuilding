@@ -51,6 +51,9 @@ function UpdateServer() {
     socket.send('CLIENT:UPDATE:' + CLIENT_ID + ':' + imgData);
 }
 
-window.onbeforeunload = function () {
-    return "Dude, are you sure you want to leave? Think of the kittens!";
-}
+window.addEventListener('beforeunload', (event) => {
+    // Cancel the event as stated by the standard.
+    event.preventDefault();
+    // Chrome requires returnValue to be set.
+    event.returnValue = '';
+});
