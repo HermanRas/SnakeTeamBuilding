@@ -316,7 +316,7 @@ function locateBonus() {
         }
 
         bonus = false;
-        bonus_time = 50;        
+        bonus_time = 30;        
     }
 }
 
