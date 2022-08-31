@@ -70,7 +70,7 @@ const sendPause = () => {
     socket.send('SERVER:PAUSE');
 }
 
-const sendBobus = () => {
+const sendBonus = () => {
     socket.send('SERVER:BONUS');
 }
 
