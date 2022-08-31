@@ -40,7 +40,7 @@ socket.addEventListener('message', function (event) {
         
         if (cmd[3] == 'CAN'){
             sendPause();
-            alert('Player' + cmd[2] + ' Pick a Live Player to takes a shot !');
+            alert('Player' + cmd[2] + ' got bonus,' + cmd[2] + ' Pick a Live Player to takes a shot !');
         }
         
         if (cmd[3] == 'COOKIE'){

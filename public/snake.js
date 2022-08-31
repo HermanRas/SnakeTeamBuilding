@@ -129,7 +129,7 @@ function checkBonus() {
             //Send Server take a shot
             sendBonus(bonus_type)
         }
-        if (bonus_type === 'COOCKIE'){
+        if (bonus_type === 'COOKIE'){
             //Send Server do a cookie
             sendBonus(bonus_type)
         }
