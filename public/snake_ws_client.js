@@ -6,7 +6,7 @@ socket.addEventListener('open', function (event) {
     console.log('Connected to WS Server')
     sendRegistration();
     buttons = document.getElementsByClassName('btn');
-    [].forEach.call(buttons, function (button) {button.disabled = true;});
+    [].forEach.call(buttons, function (button) { button.disabled = true; });
 });
 
 function updatePlayer() {
@@ -24,8 +24,9 @@ socket.addEventListener('message', function (event) {
     if (event.data === 'SERVER:PAUSE') {
         paused = true;
     };
-    if (event.data === 'SERVER:BONUS') {
-
+    if (event.data === 'SERVER:PRACTICE') {
+        buttons = document.getElementsByClassName('btn');
+        [].forEach.call(buttons, function (button) { button.disabled = !button.disabled; });
     };
     if (event.data === 'SERVER:RESET') {
         init();
@@ -58,7 +59,7 @@ function UpdateServer() {
 }
 
 function sendBonus(bonus_type) {
-    socket.send('CLIENT:BONUS:'+bonus_type);
+    socket.send('CLIENT:BONUS:'+ CLIENT_ID + ':' + bonus_type);
 }
 
 window.addEventListener('beforeunload', (event) => {

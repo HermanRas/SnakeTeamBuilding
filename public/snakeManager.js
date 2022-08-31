@@ -28,9 +28,37 @@ socket.addEventListener('message', function (event) {
         image.src = (cmd[3] + ":" + cmd[4]);
         const Server = document.getElementById('p'+cmd[2]);
         Server.src =  image.src;
-    } else {
+        return
+    } 
+    
+    if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
+        // console.log('Message:', cmd[0] , cmd[1], cmd[2]);
+
+        if (cmd[3] == 'BEER'){
+            sendPause();
+            alert('Player' + cmd[2] + ' got bonus, everyone else drink !');
+        }
+        
+        if (cmd[3] == 'CAN'){
+            sendPause();
+            alert('Player' + cmd[2] + ' Pick a Live Player to takes a shot !');
+        }
+        
+        if (cmd[3] == 'COOKIE'){
+            sendPause();
+            alert('Player' + cmd[2] + ' Quick last player to whistle takes a shot !');
+        }
+        
+        if (cmd[3] == 'HEART'){
+            sendHeart();
+        }
+
+        var image = new Image();
+        return
+    } 
+
         console.log('Message:', event.data);
-    }
+    
 
 });
 
@@ -50,5 +78,16 @@ const sendReset = () => {
     socket.send('SERVER:RESET');
 }
 
-const getBase64StringFromDataURL = (dataURL) =>
-    dataURL.replace('data:', '').replace(/^.+,/, '');
+
+const sendHeart = () => {
+    socket.send('SERVER:HEART');
+}
+
+const sendPractice = () => {
+    socket.send('SERVER:PRACTICE');
+}
+
+
+
+// const getBase64StringFromDataURL = (dataURL) =>
+//     dataURL.replace('data:', '').replace(/^.+,/, '');

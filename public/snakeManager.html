@@ -15,7 +15,8 @@
                 <button class="btn btn-warning" onclick="sendPause()">Pause</button>
                 <button class="btn btn-info" onclick="sendBobus()">Bobus</button>
                 <button class="btn btn-danger" onclick="sendReset()">Restart All</button>
-                <button class="btn btn-secondary" onclick="updateBoard()">Set IMG</button>
+                <button class="btn btn-danger" onclick="sendPractice()">Start Practice</button>
+                
     </div>
     <div style="text-align: center;">
         <img id="p1" width="300" height="320" style="width: 20%; height: 25%;">
@@ -34,6 +35,40 @@
         </img>
         <img id="p8" width="300" height="320" style="width: 20%; height: 25%;">
         </img>
+    </div>
+    <div class="text-start">
+        <hr>
+        <h3 class="rounded text-center bg-primary p-2">.:|Highest Score Wins  &#11015;RULES&#11015;|:.</h3>
+        <div class="row">
+            <div class="col-2">
+                <img src="img/beer.png" style="max-width: 20%;" alt="BEER">
+                BEER
+            </div>
+            <div class="col-2">
+                <img src="img/can.png" style="max-width: 20%;" alt="CAN">
+                SHOT
+            </div>
+            <div class="col-2">
+                <img src="img/cookie.png" style="max-width: 20%;" alt="COOKIE">
+                COOKIE
+            </div>
+            <div class="col-2">
+                <img src="img/heart.png" style="max-width: 20%;" alt="HEART">
+                HEART
+            </div>
+            <div class="col-2">
+                <img src="img/bomb.png" style="max-width: 20%;" alt="BOMB">
+                BOMB
+            </div>
+        </div>
+
+        <hr>
+        <b>BEER : </b> Everyone else take a sip from their cup. <span class="badge bg-warning">PAUSE</span><br>
+        <b>SHOT : </b> You pick a living player to take a shot. <span class="badge bg-warning">PAUSE</span><br>
+        <b>COOKIE : </b> Everyone else eets a Cookie, last to whistle takes a shot. <span class="badge bg-warning">PAUSE</span><br>
+        <b>HEART : </b> Add x3 balls to Everyone else's snake <br>
+        <b>BOMB : </b> If your snake is longer than 6 balls it will be cut in half<br>
+        <hr>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"

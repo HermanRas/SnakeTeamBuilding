@@ -133,10 +133,12 @@ function checkBonus() {
             //Send Server do a cookie
             sendBonus(bonus_type)
         }
-        if (bonus_type === 'heart'){
+        if (bonus_type === 'HEART'){
             //Send Server add harts
-            //dots = dots + 4
-            sendBonus(bonus_type)
+            sendBonus(bonus_type);
+            if ( dots > 5){
+                dots = dots - 3;
+            }
         }
         if (bonus_type === 'BOMB'){
             //local cut tail
