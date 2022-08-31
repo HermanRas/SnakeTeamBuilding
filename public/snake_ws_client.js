@@ -59,6 +59,7 @@ function UpdateServer() {
 }
 
 function sendBonus(bonus_type) {
+    console.log('CLIENT:BONUS:'+ CLIENT_ID + ':' + bonus_type);
     socket.send('CLIENT:BONUS:'+ CLIENT_ID + ':' + bonus_type);
 }
 

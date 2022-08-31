@@ -85,6 +85,7 @@ const sendHeart = () => {
 
 const sendPractice = () => {
     socket.send('SERVER:PRACTICE');
+    console.log('prac');
 }
 
 

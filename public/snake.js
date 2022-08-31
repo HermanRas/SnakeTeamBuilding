@@ -288,7 +288,6 @@ function locateBonus() {
         bonus_y = r * DOT_SIZE;
 
         r = Math.floor(Math.random() * 5);
-        console.log(r);
 
         switch (r) {
             case 0:
