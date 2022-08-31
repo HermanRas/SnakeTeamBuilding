@@ -25,9 +25,8 @@ socket.addEventListener('message', function (event) {
         paused = true;
     };
     if (event.data === 'SERVER:PRACTICE') {
-        console.log('prac');
         buttons = document.getElementsByClassName('btn');
-        // [].forEach.call(buttons, function (button) { button.disabled = false; });
+        [].forEach.call(buttons, function (button) { button.disabled = !button.disabled; });
     };
     if (event.data === 'SERVER:RESET') {
         init();
@@ -60,7 +59,6 @@ function UpdateServer() {
 }
 
 function sendBonus(bonus_type) {
-    console.log('CLIENT:BONUS:'+ CLIENT_ID + ':' + bonus_type);
     socket.send('CLIENT:BONUS:'+ CLIENT_ID + ':' + bonus_type);
 }
 

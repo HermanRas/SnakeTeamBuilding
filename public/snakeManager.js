@@ -31,10 +31,8 @@ socket.addEventListener('message', function (event) {
         return;
     } 
     
-    console.log(event.data);
+    console.log(event);
     if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
-        console.log('Message:', cmd[0] , cmd[1], cmd[2]);
-
         if (cmd[3] == 'BEER'){
             sendPause();
             alert('Player' + cmd[2] + ' got bonus, everyone else drink !');
@@ -73,7 +71,6 @@ const sendPause = () => {
 
 const sendBonus = () => {
     socket.send('SERVER:BONUS');
-    socket.send('SERVER:PRACTICE');
 }
 
 const sendReset = () => {
@@ -86,7 +83,6 @@ const sendHeart = () => {
 
 const sendPractice = () => {
     socket.send('SERVER:PRACTICE');
-    console.log('prac');
 }
 
 

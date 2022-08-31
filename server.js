@@ -67,6 +67,26 @@ wss.on('connection', function connection(ws) {
       });
     }
 
+    if (message === 'SERVER:PRACTICE') {
+      updateServerLog('SERVER ', message);
+      updateServerLog('CONSOLE', 'Sending a PRACTICE to all snakes.');
+      wss.clients.forEach(function each(client) {
+        if (client !== ws && client.readyState === WebSocket.OPEN) {
+          client.send('SERVER:PRACTICE');
+        }
+      });
+    }
+
+    if (message === 'SERVER:HEART') {
+      updateServerLog('SERVER ', message);
+      updateServerLog('CONSOLE', 'Sending a HEART to all snakes.');
+      wss.clients.forEach(function each(client) {
+        if (client !== ws && client.readyState === WebSocket.OPEN) {
+          client.send('SERVER:HEART');
+        }
+      });
+    }
+
     //////////////////////////////////////////////////////////////////////////
     // CLIENT ACTIONS 
     //////////////////////////////////////////////////////////////////////////
@@ -93,7 +113,15 @@ wss.on('connection', function connection(ws) {
     }
 
     const cmd = message.split(":");
+
     if (cmd[0] === 'CLIENT' && cmd[1] === 'UPDATE') {
+      wss.clients.forEach(function each(client) {
+        if (client == ws_server && client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      });
+    }    
+    if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
       wss.clients.forEach(function each(client) {
         if (client == ws_server && client.readyState === WebSocket.OPEN) {
           client.send(message);
