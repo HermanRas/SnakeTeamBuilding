@@ -31,7 +31,6 @@ socket.addEventListener('message', function (event) {
         return;
     } 
     
-    console.log(event);
     if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
         if (cmd[3] == 'BEER'){
             sendPause();
@@ -45,7 +44,7 @@ socket.addEventListener('message', function (event) {
         
         if (cmd[3] == 'COOKIE'){
             sendPause();
-            alert('Player' + cmd[2] + ' Quick last player to whistle takes a shot !');
+            alert('Player' + cmd[2] + ' got bonus, everyone else Quick last player to whistle takes a shot !');
         }
         
         if (cmd[3] == 'HEART'){
