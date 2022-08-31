@@ -32,7 +32,7 @@ socket.addEventListener('message', function (event) {
     } 
     
     if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
-        // console.log('Message:', cmd[0] , cmd[1], cmd[2]);
+        console.log('Message:', cmd[0] , cmd[1], cmd[2]);
 
         if (cmd[3] == 'BEER'){
             sendPause();
