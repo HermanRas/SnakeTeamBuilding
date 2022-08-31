@@ -8,7 +8,7 @@
 // Updated to work with node WSS Server & WSS Client
 // updated aditional pickups
 
-var CLIENT_ID  = 0;
+var CLIENT_ID = 0;
 
 var canvas;
 var ctx;
@@ -24,13 +24,23 @@ var bomb;
 var score;
 
 var dots;
+
 var apple_x;
 var apple_y;
+
+
+var bonus = false;
+var bonus_type = 'beer';
+var bonus_img;
+var bonus_x = -1;
+var bonus_y = -1;
+var bonus_time = 0;
 
 var leftDirection = false;
 var rightDirection = true;
 var upDirection = false;
 var downDirection = false;
+
 var inGame = true;
 var paused = true;
 
@@ -51,13 +61,12 @@ var y = new Array(ALL_DOTS);
 
 
 function init() {
-
     canvas = document.getElementById('myCanvas');
     ctx = canvas.getContext('2d');
 
     inGame = true;
     paused = true;
-    score  = 1;
+    score = 1;
 
     loadImages();
     createSnake();
@@ -79,6 +88,9 @@ function loadImages() {
     beer = new Image();
     beer.src = 'img/beer_small.png';
 
+    bonus_img = new Image();
+    bonus_img.src = 'img/beer_small.png';
+
     can = new Image();
     can.src = 'img/can_small.png';
 
@@ -90,7 +102,7 @@ function loadImages() {
 
     bomb = new Image();
     bomb.src = 'img/bomb_small.png';
-    
+
 }
 
 function createSnake() {
@@ -101,10 +113,44 @@ function createSnake() {
     }
 }
 
-function checkApple() {
-    if ((x[0] == apple_x) && (y[0] == apple_y)) {
-        dots++;
-        locateApple();
+function checkBonus() {
+    if ((x[0] == bonus_x) && (y[0] == bonus_y)) {
+        score = score + 3;
+        bonus_x = -1;
+        bonus_y = -1;
+        
+        bonus_time = 0;
+
+        if (bonus_type === 'BEER'){
+            //Send Server Drink Beer
+            sendBonus(bonus_type)
+        } 
+        if (bonus_type === 'CAN'){
+            //Send Server take a shot
+            sendBonus(bonus_type)
+        }
+        if (bonus_type === 'COOCKIE'){
+            //Send Server do a cookie
+            sendBonus(bonus_type)
+        }
+        if (bonus_type === 'heart'){
+            //Send Server add harts
+            //dots = dots + 4
+            sendBonus(bonus_type)
+        }
+        if (bonus_type === 'BOMB'){
+            //local cut tail
+            if ( dots > 6){
+                dots = Math.floor(dots/2);
+            }   
+        }
+    }
+
+    if (bonus_time <= 0) {
+        bonus_x = -1;
+        bonus_y = -1;
+    }else{
+        bonus_time--;
     }
 }
 
@@ -115,11 +161,10 @@ function doDrawing() {
     if (inGame) {
 
         ctx.drawImage(apple, apple_x, apple_y);
-        // ctx.drawImage(beer, 50, 150);
-        // ctx.drawImage(cookie, 75, 150);
-        // ctx.drawImage(can, 100, 150);
-        // ctx.drawImage(heart, 125, 150);
-        // ctx.drawImage(bomb, 150, 150);
+
+        if (bonus_x > 0 && bonus_y > 0) {
+            ctx.drawImage(bonus_img, bonus_x, bonus_y);
+        }
 
         for (var z = 0; z < dots; z++) {
             if (z == 0) {
@@ -155,14 +200,14 @@ function gamePause() {
 function showScore() {
     // clear scoreboard
     ctx.fillStyle = '#444444';
-    ctx.fillRect(0, C_HEIGHT, C_WIDTH, C_HEIGHT+10);
+    ctx.fillRect(0, C_HEIGHT, C_WIDTH, C_HEIGHT + 10);
 
     ctx.fillStyle = 'white';
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.font = 'normal bold 18px serif';
 
-    ctx.fillText("S" + CLIENT_ID + " SCORE="+score, C_WIDTH / 2, C_HEIGHT+11);
+    ctx.fillText("S" + CLIENT_ID + " SCORE=" + score, C_WIDTH / 2, C_HEIGHT + 11);
 }
 
 function checkApple() {
@@ -232,13 +277,57 @@ function locateApple() {
     apple_y = r * DOT_SIZE;
 }
 
+function locateBonus() {
+    if (bonus) {
+        var r = Math.floor(Math.random() * MAX_RAND);
+        bonus_x = r * DOT_SIZE;
+
+        r = Math.floor(Math.random() * MAX_RAND);
+        bonus_y = r * DOT_SIZE;
+
+        r = Math.floor(Math.random() * 5);
+        console.log(r);
+
+        switch (r) {
+            case 0:
+                bonus_img = beer;
+                bonus_type = 'BEER';
+                break;
+            case 1:
+                bonus_img = can;
+                bonus_type = 'CAN';
+                break;
+            case 2:
+                bonus_img = cookie;
+                bonus_type = 'COOKIE';
+                break;
+            case 3:
+                bonus_img = heart;
+                bonus_type = 'HEART';
+                break;
+            case 4:
+                bonus_img = bomb;
+                bonus_type = 'BOMB';
+                break;
+            default:
+                bonus_img = beer;
+                bonus_type = 'BEER';  
+        }
+
+        bonus = false;
+        bonus_time = 50;        
+    }
+}
+
 function gameCycle() {
 
     if (inGame) {
         checkApple();
+        checkBonus();
         checkCollision();
         showScore();
         if (!paused) {
+            locateBonus();
             move();
             doDrawing();
         } else {
