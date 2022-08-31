@@ -28,9 +28,10 @@ socket.addEventListener('message', function (event) {
         image.src = (cmd[3] + ":" + cmd[4]);
         const Server = document.getElementById('p'+cmd[2]);
         Server.src =  image.src;
-        return
+        return;
     } 
     
+    console.log(event.data);
     if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
         console.log('Message:', cmd[0] , cmd[1], cmd[2]);
 
@@ -72,12 +73,12 @@ const sendPause = () => {
 
 const sendBonus = () => {
     socket.send('SERVER:BONUS');
+    socket.send('SERVER:PRACTICE');
 }
 
 const sendReset = () => {
     socket.send('SERVER:RESET');
 }
-
 
 const sendHeart = () => {
     socket.send('SERVER:HEART');
@@ -87,7 +88,6 @@ const sendPractice = () => {
     socket.send('SERVER:PRACTICE');
     console.log('prac');
 }
-
 
 
 // const getBase64StringFromDataURL = (dataURL) =>

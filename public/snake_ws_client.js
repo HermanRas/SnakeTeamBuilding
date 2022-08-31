@@ -1,5 +1,5 @@
 // Create WebSocket connection.
-const socket = new WebSocket('ws://192.168.8.103:8080');
+const socket = new WebSocket('ws://localhost:8080');
 
 // Connection opened
 socket.addEventListener('open', function (event) {
@@ -27,7 +27,7 @@ socket.addEventListener('message', function (event) {
     if (event.data === 'SERVER:PRACTICE') {
         console.log('prac');
         buttons = document.getElementsByClassName('btn');
-        [].forEach.call(buttons, function (button) { button.disabled = !button.disabled; });
+        // [].forEach.call(buttons, function (button) { button.disabled = false; });
     };
     if (event.data === 'SERVER:RESET') {
         init();
