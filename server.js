@@ -24,7 +24,7 @@ wss.on('connection', function connection(ws) {
 
   // incomming action
   ws.on('message', function incoming(message) {
-    console.log('received:', message);
+    //console.log('received:', message);
 
     //////////////////////////////////////////////////////////////////////////
     // SERVER ACTIONS 
