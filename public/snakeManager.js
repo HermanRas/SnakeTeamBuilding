@@ -34,17 +34,17 @@ socket.addEventListener('message', function (event) {
     if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
         if (cmd[3] == 'BEER') {
             sendPause();
-            alert('Player' + cmd[2] + ' got bonus, everyone else drink !');
+            alert('Player' + cmd[2] + ' got lollipop, everyone gets a sweetie !');
         }
 
         if (cmd[3] == 'CAN') {
             sendPause();
-            alert('Player' + cmd[2] + ' got bonus,' + cmd[2] + ' Pick a Live Player to takes a shot !');
+            alert('Player' + cmd[2] + ' got bonus,' + cmd[2] + ' Pick a Live Player to eat a worm !');
         }
 
         if (cmd[3] == 'COOKIE') {
             sendPause();
-            alert('Player' + cmd[2] + ' got bonus, everyone else Quick last player to whistle takes a shot !');
+            alert('Player' + cmd[2] + ' got bonus, everyone else Quick last player to whistle eats a worm !');
         }
 
         if (cmd[3] == 'HEART') {
@@ -55,7 +55,7 @@ socket.addEventListener('message', function (event) {
         return
     }
 
-    console.log('Message:', event.data);
+    // console.log('Message:', event.data);
 
 
 });
