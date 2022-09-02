@@ -1,12 +1,12 @@
 // Create WebSocket connection.
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('ws://10.110.113.134:8080');
 
 // Connection opened
-socket.addEventListener('open', function (event) {
+socket.addEventListener('open', function(event) {
     console.log('Connected to WS Server')
     sendRegistration();
     buttons = document.getElementsByClassName('btn');
-    [].forEach.call(buttons, function (button) { button.disabled = true; });
+    [].forEach.call(buttons, function(button) { button.disabled = true; });
 });
 
 function updatePlayer() {
@@ -15,7 +15,7 @@ function updatePlayer() {
 }
 
 // Listen for messages
-socket.addEventListener('message', function (event) {
+socket.addEventListener('message', function(event) {
     console.log('Message from server ', event.data);
 
     if (event.data === 'SERVER:START') {
@@ -26,7 +26,7 @@ socket.addEventListener('message', function (event) {
     };
     if (event.data === 'SERVER:PRACTICE') {
         buttons = document.getElementsByClassName('btn');
-        [].forEach.call(buttons, function (button) { button.disabled = !button.disabled; });
+        [].forEach.call(buttons, function(button) { button.disabled = !button.disabled; });
     };
     if (event.data === 'SERVER:RESET') {
         init();
@@ -59,7 +59,7 @@ function UpdateServer() {
 }
 
 function sendBonus(bonus_type) {
-    socket.send('CLIENT:BONUS:'+ CLIENT_ID + ':' + bonus_type);
+    socket.send('CLIENT:BONUS:' + CLIENT_ID + ':' + bonus_type);
 }
 
 window.addEventListener('beforeunload', (event) => {
