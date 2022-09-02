@@ -9,11 +9,12 @@ let ws_server;
 let ws_Server_log = '';
 let ws_server_add = ''
 
-require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-  ws_server_add = add;
-  console.log('SERVER_ADDR: ' + add);
-  updateServerLog('CONSOLE', 'SERVER_ADDR: ' + add);
-})
+let ip = Object.values(require('os').networkInterfaces()).reduce((r, list) => r.concat(list.reduce((rr, i) => rr.concat(i.family === 'IPv4' && !i.internal && i.address || []), [])), [])
+
+if (ip) {
+  ws_server_add = ip[0];
+  console.log('Server address: ', ip);
+}
 
 wss.on('connection', function connection(ws) {
   // new connections
@@ -159,8 +160,8 @@ fs.readFile('public/snake_ws_client.js.tmp', 'utf8', function (err, data) {
     updateServerLog('CONSOLE', err);
     return console.log(err);
   }
-  console.log(ws_server_add);
   var result = data.replace(/localhost/g, ws_server_add);
+  console.log('Updating client file with server address: ', ws_server_add);
   updateServerLog('CONSOLE', 'Updating client file with server address: ' + ws_server_add);
   fs.writeFile('public/snake_ws_client.js', result, 'utf8', function (err) {
     if (err) return console.log(err);
@@ -168,4 +169,4 @@ fs.readFile('public/snake_ws_client.js.tmp', 'utf8', function (err, data) {
 });
 
 app.use(express.static('public'))
-server.listen(8080, () => console.log(`Lisening on port :8080`))
+server.listen(8080, () => console.log(`Lisening on port 0.0.0.0:8080`))
