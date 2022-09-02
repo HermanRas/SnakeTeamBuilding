@@ -86,13 +86,13 @@ function loadImages() {
     apple.src = 'img/apple_small.png';
 
     beer = new Image();
-    beer.src = 'img/beer_small.png';
+    beer.src = 'img/.png';
 
     bonus_img = new Image();
-    bonus_img.src = 'img/beer_small.png';
+    bonus_img.src = 'img/lollipop_small.png';
 
     can = new Image();
-    can.src = 'img/can_small.png';
+    can.src = 'img/worm_small.png';
 
     cookie = new Image();
     cookie.src = 'img/cookie_small.png';
