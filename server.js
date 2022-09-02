@@ -7,6 +7,13 @@ const wss = new WebSocket.Server({ server: server });
 
 let ws_server;
 let ws_Server_log = '';
+let ws_server_add = ''
+
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+  ws_server_add = add;
+  console.log('SERVER_ADDR: ' + add);
+  updateServerLog('CONSOLE', 'SERVER_ADDR: ' + add);
+})
 
 wss.on('connection', function connection(ws) {
   // new connections
@@ -120,7 +127,7 @@ wss.on('connection', function connection(ws) {
           client.send(message);
         }
       });
-    }    
+    }
     if (cmd[0] === 'CLIENT' && cmd[1] === 'BONUS') {
       wss.clients.forEach(function each(client) {
         if (client == ws_server && client.readyState === WebSocket.OPEN) {
@@ -146,6 +153,19 @@ function updateServerLog(ws, NewLine) {
   ws_Server_log = ws_Server_log + '<br>' + ws + ': ' + NewLine;
 }
 
-app.use(express.static('public'))
+var fs = require('fs')
+fs.readFile('public/snake_ws_client.js.tmp', 'utf8', function (err, data) {
+  if (err) {
+    updateServerLog('CONSOLE', err);
+    return console.log(err);
+  }
+  console.log(ws_server_add);
+  var result = data.replace(/localhost/g, ws_server_add);
+  updateServerLog('CONSOLE', 'Updating client file with server address: ' + ws_server_add);
+  fs.writeFile('public/snake_ws_client.js', result, 'utf8', function (err) {
+    if (err) return console.log(err);
+  });
+});
 
+app.use(express.static('public'))
 server.listen(8080, () => console.log(`Lisening on port :8080`))
